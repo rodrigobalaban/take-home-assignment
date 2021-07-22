@@ -1,5 +1,7 @@
+using Bank.Infra;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +19,7 @@ namespace Bank
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<BankContext>(opt => opt.UseInMemoryDatabase("Bank"));
             services.AddControllers();
         }
 

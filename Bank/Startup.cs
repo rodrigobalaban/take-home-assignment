@@ -1,4 +1,7 @@
 using Bank.Repositories;
+using Bank.Repositories.Interfaces;
+using Bank.Services;
+using Bank.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +24,10 @@ namespace Bank
         {
             services.AddDbContext<BankContext>(opt => opt.UseInMemoryDatabase("Bank"));
             services.AddControllers();
+
+            services.AddScoped<IDatabaseManager, DatabaseManager>();
+
+            services.AddScoped<IResetService, ResetService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

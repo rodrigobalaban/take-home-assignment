@@ -1,7 +1,7 @@
 ﻿using Bank.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bank.Infra
+namespace Bank.Repositories
 {
     public class BankContext : DbContext
     {
@@ -9,6 +9,5 @@ namespace Bank.Infra
         { }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Event> Events { get; set; }
     }
 }

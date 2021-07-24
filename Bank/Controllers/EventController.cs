@@ -24,7 +24,7 @@ namespace Bank.Controllers
 
             if (response == null)
             {
-                return NotFound();
+                return NotFound(0);
             }
 
             return Ok(response);

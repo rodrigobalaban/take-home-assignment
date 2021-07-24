@@ -13,16 +13,17 @@ namespace Bank.Services
             _accountService = accountService;
         }
 
-        public Task<DestinationAccount> ProcessEvent(Event @event)
+        public Task<EventResponse> ProcessEvent(Event @event)
         {
             return @event.Type switch
             {
                 "deposit" => DepositAsync(@event),
+                "withdraw" => WithdrawAsync(@event),
                 _ => null,
             };
-        }
+        }        
 
-        private async Task<DestinationAccount> DepositAsync(Event @event)
+        private async Task<EventResponse> DepositAsync(Event @event)
         {
             var account = await _accountService.GetAccountByIdAsync(@event.Destination);
 
@@ -36,7 +37,24 @@ namespace Bank.Services
                 await _accountService.UpdateAccountAsync(account);
             }
 
-            return new DestinationAccount(account);
+            return new EventResponse(account, null);
+        }
+
+        private async Task<EventResponse> WithdrawAsync(Event @event)
+        {
+            var account = await _accountService.GetAccountByIdAsync(@event.Origin);
+
+            if (account == null)
+            {
+                return null;
+            }
+            else
+            {
+                account.Balance -= @event.Amount;
+                await _accountService.UpdateAccountAsync(account);
+            }
+
+            return new EventResponse(null, account);
         }
     }
 }

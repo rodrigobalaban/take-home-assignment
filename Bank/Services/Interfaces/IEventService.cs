@@ -5,6 +5,6 @@ namespace Bank.Services.Interfaces
 {
     public interface IEventService
     {
-        Task<DestinationAccount> ProcessEvent(Event @event);
+        Task<EventResponse> ProcessEvent(Event @event);
     }
 }

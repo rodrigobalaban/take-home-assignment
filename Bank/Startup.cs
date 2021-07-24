@@ -25,8 +25,11 @@ namespace Bank
             services.AddDbContext<BankContext>(opt => opt.UseInMemoryDatabase("Bank"));
             services.AddControllers();
 
-            services.AddScoped<IDatabaseManager, DatabaseManager>();
-
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IDatabaseManager, DatabaseManager>();            
+            
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IEventService, EventService>();
             services.AddScoped<IResetService, ResetService>();
         }
 

@@ -35,7 +35,7 @@ namespace Bank.Services
             else
             {
                 account.Balance += @event.Amount;
-                await _accountService.UpdateAccountAsync(account);
+                await _accountService.SaveChangesAsync();
             }
 
             return new EventResponse(account, null);
@@ -52,7 +52,7 @@ namespace Bank.Services
             else
             {
                 account.Balance -= @event.Amount;
-                await _accountService.UpdateAccountAsync(account);
+                await _accountService.SaveChangesAsync();
             }
 
             return new EventResponse(null, account);
@@ -76,7 +76,7 @@ namespace Bank.Services
             originAccount.Balance -= @event.Amount;
             destinationAccount.Balance += @event.Amount;
 
-            await _accountService.UpdateAccountAsync(originAccount);
+            await _accountService.SaveChangesAsync();
 
             return new EventResponse(destinationAccount, originAccount);
         }

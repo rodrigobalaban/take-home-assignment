@@ -1,5 +1,5 @@
 ﻿using Bank.Models;
-using Bank.Repositories.Interfaces;
+using Bank.Repositories;
 using Bank.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -7,11 +7,11 @@ namespace Bank.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly IAccountRepository _accountRepository;
+        private readonly BankContext _context;
 
-        public AccountService(IAccountRepository accountRepositoy)
+        public AccountService(BankContext context)
         {
-            _accountRepository = accountRepositoy;
+            _context = context;
         }
 
         public async Task<Account> CreateNewAccountAsync(string id, float balance)
@@ -22,17 +22,20 @@ namespace Bank.Services
                 Balance = balance
             };
 
-            return await _accountRepository.SaveNewAccountAsync(account);
+            await _context.AddAsync(account);
+            await SaveChangesAsync();
+
+            return account;
         }
 
         public async Task<Account> GetAccountByIdAsync(string id)
         {
-            return await _accountRepository.GetAccountById(id);
+            return await _context.Accounts.FindAsync(id);
         }
 
-        public async Task<Account> UpdateAccountAsync(Account account)
+        public async Task<int> SaveChangesAsync()
         {
-            return await _accountRepository.SaveChangesAsync(account);
+            return await _context.SaveChangesAsync();
         }
     }
 }

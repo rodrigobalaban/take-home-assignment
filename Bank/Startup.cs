@@ -1,5 +1,4 @@
 using Bank.Repositories;
-using Bank.Repositories.Interfaces;
 using Bank.Services;
 using Bank.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -25,10 +24,7 @@ namespace Bank
             services.AddDbContext<BankContext>(opt => opt.UseInMemoryDatabase("Bank"));
             services.AddControllers().AddJsonOptions(options => {
                 options.JsonSerializerOptions.IgnoreNullValues = true;
-            });
-
-            services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddScoped<IDatabaseManager, DatabaseManager>();            
+            });          
             
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IEventService, EventService>();

@@ -1,4 +1,4 @@
-﻿using Bank.Repositories.Interfaces;
+﻿using Bank.Repositories;
 using Bank.Services.Interfaces;
 using System.Threading.Tasks;
 
@@ -6,16 +6,16 @@ namespace Bank.Services
 {
     public class ResetService : IResetService
     {
-        private readonly IDatabaseManager _databaseManager;
+        private readonly BankContext _context;
 
-        public ResetService(IDatabaseManager databaseManager)
+        public ResetService(BankContext context)
         {
-            _databaseManager = databaseManager;
+            _context = context;
         }
 
         public Task<bool> ResetAsync()
         {
-            return _databaseManager.DropDatabaseAsync();
+            return _context.Database.EnsureDeletedAsync();
         }
     }
 }

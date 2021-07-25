@@ -7,6 +7,6 @@ namespace Bank.Services.Interfaces
     {
         Task<Account> GetAccountByIdAsync(string id);
         Task<Account> CreateNewAccountAsync(string id, float balance);
-        Task<Account> UpdateAccountAsync(Account account);
+        Task<int> SaveChangesAsync();
     }
 }

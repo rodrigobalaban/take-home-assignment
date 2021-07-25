@@ -16,6 +16,7 @@ namespace Bank.Controllers
         }
 
         [HttpPost]
+        [Produces("text/plain")]
         public async Task<ActionResult> PostResetAsync()
         {
             await _resetService.ResetAsync();

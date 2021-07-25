@@ -60,13 +60,14 @@ namespace Bank.Services
 
         private async Task<EventResponse> TransferAsync(Event @event)
         {
-            var originAccount = await _accountService.GetAccountByIdAsync(@event.Origin);
-            var destinationAccount = await _accountService.GetAccountByIdAsync(@event.Destination);
+            var originAccount = await _accountService.GetAccountByIdAsync(@event.Origin);           
 
             if (originAccount == null)
             {
                 return null;
             }
+
+            var destinationAccount = await _accountService.GetAccountByIdAsync(@event.Destination);
 
             if (destinationAccount == null)
             {

@@ -16,11 +16,7 @@ namespace Bank.Services
 
         public async Task<Account> CreateNewAccountAsync(string id, float balance)
         {
-            var account = new Account
-            {
-                Id = id,
-                Balance = balance
-            };
+            var account = new Account(id, balance);
 
             await _context.AddAsync(account);
             await SaveChangesAsync();

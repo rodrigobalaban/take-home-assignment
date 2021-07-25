@@ -19,7 +19,7 @@ namespace Bank.Controllers
         public async Task<ActionResult> PostResetAsync()
         {
             await _resetService.ResetAsync();
-            return Ok();
+            return Ok("OK");
         }
     }
 }

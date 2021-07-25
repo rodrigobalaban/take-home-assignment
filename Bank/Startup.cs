@@ -22,6 +22,7 @@ namespace Bank
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BankContext>(opt => opt.UseInMemoryDatabase("Bank"));
+
             services.AddControllers().AddJsonOptions(options => {
                 options.JsonSerializerOptions.IgnoreNullValues = true;
             });          

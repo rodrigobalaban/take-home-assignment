@@ -1,7 +1,6 @@
 ﻿using Bank.Models;
 using Bank.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace Bank.Controllers

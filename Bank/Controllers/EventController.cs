@@ -27,7 +27,7 @@ namespace Bank.Controllers
                 return NotFound(0);
             }
 
-            return Ok(response);
+            return CreatedAtRoute("", response);
         }
     }
 }

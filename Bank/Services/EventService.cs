@@ -19,6 +19,7 @@ namespace Bank.Services
             {
                 "deposit" => DepositAsync(@event),
                 "withdraw" => WithdrawAsync(@event),
+                "transfer" => TransferAsync(@event),
                 _ => null,
             };
         }        
@@ -55,6 +56,29 @@ namespace Bank.Services
             }
 
             return new EventResponse(null, account);
+        }
+
+        private async Task<EventResponse> TransferAsync(Event @event)
+        {
+            var originAccount = await _accountService.GetAccountByIdAsync(@event.Origin);
+            var destinationAccount = await _accountService.GetAccountByIdAsync(@event.Destination);
+
+            if (originAccount == null)
+            {
+                return null;
+            }
+
+            if (destinationAccount == null)
+            {
+                destinationAccount = await _accountService.CreateNewAccountAsync(@event.Destination, 0);
+            }
+
+            originAccount.Balance -= @event.Amount;
+            destinationAccount.Balance += @event.Amount;
+
+            await _accountService.UpdateAccountAsync(originAccount);
+
+            return new EventResponse(destinationAccount, originAccount);
         }
     }
 }

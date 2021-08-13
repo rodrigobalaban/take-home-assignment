@@ -49,11 +49,9 @@ namespace Bank.Services
             {
                 return null;
             }
-            else
-            {
-                account.Balance -= @event.Amount;
-                await _accountService.SaveChangesAsync();
-            }
+
+            account.Balance -= @event.Amount;
+            await _accountService.SaveChangesAsync();
 
             return new EventResponse(null, account);
         }

@@ -11,3 +11,4 @@ If the solution is run by Visual Studio, the packages will be automatically rest
 ```bash
 dotnet restore 
 ```
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=rodrigobalaban_take-home-assignment&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=rodrigobalaban_take-home-assignment)
